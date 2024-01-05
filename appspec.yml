@@ -1,0 +1,18 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /springbootApp.jar
+    destination: /home/ec2-user/
+
+file_exists_behavior: OVERWRITE
+
+hooks:
+  AfterInstall:
+    - location: start.sh
+      timeout: 10
+      runas: root
+  ApplicationStop:
+    - location: stop.sh
+      timeout: 10
+      runas: root
