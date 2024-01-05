@@ -9,7 +9,7 @@ phases:
       - echo Pre-build completed
   build: # 빌드 명령
     commands:
-      - Build started
+      - echo Build started
       - mvn clean package
   post_build:
     commands:
