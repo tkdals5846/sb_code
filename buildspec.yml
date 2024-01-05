@@ -20,4 +20,5 @@ artifacts:
     - target/springbootApp.jar
     - start.sh
     - stop.sh
+    - appspec.yml
   discard-paths: yes #경로 무시하겠다
