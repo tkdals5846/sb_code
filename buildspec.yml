@@ -1,24 +1,31 @@
 version: 0.2
 
+env:
+  variables:
+    AWS_ECR: 039454740560.dkr.ecr.ap-northeast-2.amazonaws.com
+    IMAGE_REPO_NAME: spring-image
+    CONTAINER_NAME: spring-container
+
 phases:
   install:
     runtime-versions:
       java: corretto8
   pre_build: #빌드전에 할 행동
     commands:
-      - echo Pre-build completed
+     - aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin $AWS_ECR # ECR 로그인
+
   build: # 빌드 명령
     commands:
-      - echo Build started
       - mvn clean package
+      - IMAGE_TAG=$CODEBUILD_BUILD_NUMBER #이미지빌드(build번호 붙여서)
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ECR/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ECR/$IMAGE_REPO_NAME:latest
   post_build:
     commands:
-      - echo Build completed
-
+      - docker push $AWS_ECR/$IMAGE_REPO_NAME:latest #이미지푸시
+      - docker push $AWS_ECR/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $AWS_ECR/$IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
 artifacts:
   files: # 빌드후에 배포단계로 옮길 파일들.
-    - target/springbootApp.jar
-    - start.sh
-    - stop.sh
-    - appspec.yml
-  discard-paths: yes #경로 무시하겠다
+    - imagedefinitions.json #push된 이미지로 부터 컨테이너를 배포하기 위함.
