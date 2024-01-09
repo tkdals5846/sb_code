@@ -12,7 +12,7 @@ pipeline {
         GITSSHADD = 'git@github.com:tkdals5846/sb_code.git'
         GITCREDENTIAL = 'git_cre'
         
-        DOCKERHUB = 'mini0916'
+        DOCKERHUB = 'mini0916/spring'
         DOCKERHUBCREDENTIAL = 'docker_cre'
     }
     
