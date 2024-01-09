@@ -6,19 +6,30 @@ pipeline {
     }
     
     environment {
-        GITNAME = 'tkdals5846' // 보쿠노 깃허브ID
-        GITEMAIL = 'tkdals5846@naver.com' // 와타시노 이메일
+        GITNAME = 'tkdals5846' 
+        GITEMAIL = 'tkdals5846@naver.com'
         GITWEBADD = 'https://github.com/tkdals5846/sb_code.git'
         GITSSHADD = 'git@github.com:tkdals5846/sb_code.git'
-        GITCREDENTIAL = 'git_cre'   // 젠킨스에서 생성한 git credential
+        GITCREDENTIAL = 'git_cre'  
     }
     
     stages {
-        stage('Build') {
+        stage('Checkout Github') {
             steps {
-                echo 'Building..'
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [],
+                userRemoteConfigs: [[credentialsId: GITCREDENTIAL, url: GITWEBADD]]])
+            }
+            post {
+            
+                failure {
+                    echo 'Repository clone failure'
+                }
+                success {
+                    echo 'Repository clone success'
+                }
             }
         }
+        
         stage('Test') {
             steps {
                 echo 'Testing..'
