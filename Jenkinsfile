@@ -10,7 +10,9 @@ pipeline {
         GITEMAIL = 'tkdals5846@naver.com'
         GITWEBADD = 'https://github.com/tkdals5846/sb_code.git'
         GITSSHADD = 'git@github.com:tkdals5846/sb_code.git'
-        GITCREDENTIAL = 'git_cre'  
+        GITCREDENTIAL = 'git_cre'
+        DOCEKRHUB = ''
+        DOCEKRCREDENTIAL = ''
     }
     
     stages {
@@ -30,14 +32,14 @@ pipeline {
             }
         }
         
-        stage('Test') {
+        stage('Code build') {
             steps {
-                echo 'Testing..'
+                sh 'mvn clean package'
             }
         }
-        stage('Deploy') {
+        stage('image build') {
             steps {
-                echo 'Deploying....'
+                sh 'docker build -t oolralra/srping:1.0 .'
             }
         }
     }
