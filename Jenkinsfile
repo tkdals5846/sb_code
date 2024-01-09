@@ -9,7 +9,7 @@ pipeline {
         GITNAME = 'tkdals5846' 
         GITEMAIL = 'tkdals5846@naver.com'
         GITWEBADD = 'https://github.com/tkdals5846/sb_code.git'
-        GITSSHADD = 'git@github.com:tkdals5846/sb_code.git'
+        GITSSHADD = 'git@github.com:tkdals5846/spring_deployment.git'
         GITCREDENTIAL = 'git_cre'
         
         DOCKERHUB = 'mini0916/spring'
