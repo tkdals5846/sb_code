@@ -49,7 +49,7 @@ pipeline {
         stage('image push') {
             steps {
                  sh 'docker push  ${DOCKERHUB}:${currentBuild.number}'
-                 sh 'docker push  ${DOCKERHUB}:latest
+                 sh 'docker push  ${DOCKERHUB}:latest'
             }
             
             post {
@@ -65,6 +65,7 @@ pipeline {
                     sh 'docker image rm -f ${DOCKERHUB}:latest'
                 }
             }
+            
         }
     }
 }
