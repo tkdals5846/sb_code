@@ -41,8 +41,10 @@ pipeline {
         
         stage('image build') {
             steps {
-                sh 'docker build -t ${DOCKERHUB}:${currentBuild.number} .'
-                sh 'docker build -t ${DOCKERHUB}:latest .'
+                sh "docker build -t ${DOCKERHUB}:${currentBuild.number} ."
+                sh "docker build -t ${DOCKERHUB}:latest ."
+                // currentBuild.number = 젠킨스가 제공하는 빌드넘버 변수
+                // oolralra/spring:1 같은 형태로 빌드가 될것
             }
         }
         
@@ -56,18 +58,18 @@ pipeline {
             
             post {
                 failure {
-                    echo 'docker image push failure' 
-                    sh 'docker image rm -f ${DOCKERHUB}:${currentBuild.number}'
-                    sh 'docker image rm -f ${DOCKERHUB}:latest'
+                    echo 'docker image push failure'
+                    sh "docker image rm -f ${DOCKERHUB}:${currentBuild.number}"
+                    sh "docker image rm -f ${DOCKERHUB}:latest"
                 }
                 
                 success {
-                    echo 'docker image push success' 
-                    sh 'docker image rm -f ${DOCKERHUB}:${currentBuild.number}'
-                    sh 'docker image rm -f ${DOCKERHUB}:latest'
+                    echo 'docker image push success'
+                    sh "docker image rm -f ${DOCKERHUB}:${currentBuild.number}"
+                    sh "docker image rm -f ${DOCKERHUB}:latest"
                 }
             }
-            
         }
+
     }
 }
