@@ -13,7 +13,7 @@ pipeline {
         GITCREDENTIAL = 'git_cre'
         
         DOCKERHUB = 'mini0916'
-        DOCKERCREDENTIAL = 'docker_cre'
+        DOCKERHUBCREDENTIAL = 'docker_cre'
     }
     
     stages {
