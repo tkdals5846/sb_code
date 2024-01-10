@@ -11,7 +11,7 @@ pipeline {
         GITSSHADD = 'git@github.com:tkdals5846/sb_code.git'
         GITCREDENTIAL = 'git_cre'
         
-        DOCKERHUB = 'tkdals5846/spring'
+        DOCKERHUB = 'mini0916/spring'
         DOCKERHUBCREDENTIAL = 'docker_cre'
     }
         
@@ -19,7 +19,7 @@ pipeline {
         stage('Checkout Github') {
             steps {
                 
-                slackSend (channel: '#jenkins-ci', color: ' #f9afe6', message:
+                slackSend (channel: '#jenkins-ci', color: '#f01313', message:
                 "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
 
             
