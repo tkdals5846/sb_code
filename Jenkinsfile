@@ -5,19 +5,24 @@ pipeline {
         maven 'my_maven'
     }
     environment {
-        GITNAME = 'oolralra'            
-        GITEMAIL = 'oolralra@gmail.com' 
-        GITWEBADD = 'https://github.com/oolralra/sb_code.git'
-        GITSSHADD = 'git@github.com:oolralra/sb_code.git'
+        GITNAME = 'tkdals5846'            
+        GITEMAIL = 'tkdals5846@gmail.com' 
+        GITWEBADD = 'https://github.com/tkdals5846/sb_code.git'
+        GITSSHADD = 'git@github.com:tkdals5846/sb_code.git'
         GITCREDENTIAL = 'git_cre'
         
-        DOCKERHUB = 'oolralra/spring'
+        DOCKERHUB = 'tkdals5846/spring'
         DOCKERHUBCREDENTIAL = 'docker_cre'
     }
         
     stages {
         stage('Checkout Github') {
             steps {
+                
+                slackSend (channel: '#jenkins-ci', color: ' #f9afe6', message:
+                "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+
+            
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [],
                 userRemoteConfigs: [[credentialsId: GITCREDENTIAL, url: GITWEBADD]]])
             }
