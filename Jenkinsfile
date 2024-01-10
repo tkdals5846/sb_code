@@ -19,7 +19,7 @@ pipeline {
         stage('Checkout Github') {
             steps {
                 
-                slackSend (channel: '#jenkins-ci', color: '#f01313', message:
+                slackSend (channel: '#jenkins-ci', color: '#00FF00', message:
                 "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
 
             
